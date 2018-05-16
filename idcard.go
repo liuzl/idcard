@@ -66,7 +66,12 @@ func Parse(id string) (*IDCardInfo, error) {
 		gender = "female"
 	}
 
-	return &IDCardInfo{ID: id, Birthday: t, Gender: gender}, nil
+	county := CodeMap[id[:6]]
+	if county == "" {
+		return nil, fmt.Errorf("areacode not correct")
+	}
+
+	return &IDCardInfo{id, t, gender, CodeMap[id[:2]+"0000"], CodeMap[id[:4]+"00"], county}, nil
 }
 
 func VerifyBirthday(day string) bool {
