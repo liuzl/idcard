@@ -31,6 +31,44 @@ var (
 		10: '2'}
 )
 
+type IDCardInfo struct {
+	ID       string    `json:"id"`
+	Birthday time.Time `json:"birthday"`
+	Gender   string    `json:"gender"`
+	Province string    `json:"province"`
+	City     string    `json:"city"`
+	County   string    `json:"county"`
+}
+
+func Parse(id string) (*IDCardInfo, error) {
+	id = strings.ToUpper(id)
+	last := []rune(id)[17]
+	if len(id) != idcardLen || !goutil.StringIs(id[:17], unicode.IsDigit) ||
+		(!unicode.IsDigit(last) && last != 'X') {
+		return nil, fmt.Errorf("format not correct")
+	}
+
+	t, err := time.Parse("20060102", id[6:14])
+	if err != nil || t.After(time.Now()) || t.Before(startDay) {
+		return nil, fmt.Errorf("birthday %s not correct", id[6:14])
+	}
+
+	total := 0
+	for i := 0; i < 17; i++ {
+		total += ratio[i] * int(id[i]-'0')
+	}
+	if matchMap[total%ratioVal] != last {
+		return nil, fmt.Errorf("checksum not correct")
+	}
+
+	gender := "male"
+	if int(id[16]-'0')%2 == 0 {
+		gender = "female"
+	}
+
+	return &IDCardInfo{ID: id, Birthday: t, Gender: gender}, nil
+}
+
 func VerifyBirthday(day string) bool {
 	if len(day) != 8 || !goutil.StringIs(day, unicode.IsDigit) {
 		return false

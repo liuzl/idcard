@@ -20,3 +20,11 @@ func TestVerify(t *testing.T) {
 		}
 	}
 }
+
+func TestParse(t *testing.T) {
+	ret, err := Parse("130524198308184533")
+	if err != nil {
+		t.Error(err)
+	}
+	t.Log(ret)
+}
