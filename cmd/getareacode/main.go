@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/antchfx/htmlquery"
-	"github.com/antchfx/xpath"
-	"github.com/liuzl/dl"
-	"github.com/liuzl/goutil"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"unicode"
+
+	"github.com/antchfx/htmlquery"
+	"github.com/antchfx/xpath"
+	"github.com/liuzl/dl"
+	"github.com/liuzl/goutil"
 )
 
 var (

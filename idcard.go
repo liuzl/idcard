@@ -2,10 +2,11 @@ package idcard
 
 import (
 	"fmt"
-	"github.com/liuzl/goutil"
 	"strings"
 	"time"
 	"unicode"
+
+	"github.com/liuzl/goutil"
 )
 
 var (
