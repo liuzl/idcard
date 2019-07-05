@@ -6,8 +6,11 @@ type Source struct {
 	Url   string
 }
 
+// http://www.mca.gov.cn/article/sj/xzqh/
+
 var sources = []*Source{
-	&Source{`2018`, `2018年6月中华人民共和国县以上行政区划代码`, `http://www.mca.gov.cn/article/sj/xzqh/2018/201804-12/20180608021501.html`},
+	&Source{`2019`, `2019年5月中华人民共和国县以上行政区划代码`, `http://www.mca.gov.cn/article/sj/xzqh/2019/201901-06/201906211421.html`},
+	&Source{`2018`, `2018年中华人民共和国行政区划代码（截止2018年12月31日）`, `http://www.mca.gov.cn/article/sj/xzqh/1980/201903/201903011447.html`},
 	&Source{`2017`, `2017年中华人民共和国行政区划代码（截止2017年12月31日）`, `http://www.mca.gov.cn/article/sj/tjbz/a/2018/201803131439.html`},
 	&Source{`2016`, `2016年中华人民共和国行政区划代码（截止2016年12月31日）`, `http://www.mca.gov.cn/article/sj/tjbz/a/2016/201612/201705311652.html`},
 	&Source{`2015`, `2015年中华人民共和国行政区划代码（截止2015年12月31日）`, `http://www.mca.gov.cn/article/sj/tjbz/a/2015/201706011127.html`},

@@ -55,7 +55,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		b, err := goutil.JsonMarshalIndent(m, "", "  ")
+		b, err := goutil.JSONMarshalIndent(m, "", "  ")
 		if err != nil {
 			log.Fatal(err)
 		}
