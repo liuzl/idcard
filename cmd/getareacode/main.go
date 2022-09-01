@@ -9,10 +9,10 @@ import (
 	"strings"
 	"unicode"
 
+	"crawler.club/dl"
 	"github.com/antchfx/htmlquery"
 	"github.com/antchfx/xpath"
-	"github.com/liuzl/dl"
-	"github.com/liuzl/goutil"
+	"zliu.org/goutil"
 )
 
 var (

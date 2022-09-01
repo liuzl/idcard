@@ -6,7 +6,7 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/liuzl/goutil"
+	"zliu.org/goutil"
 )
 
 var (
