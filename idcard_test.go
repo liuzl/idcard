@@ -9,12 +9,12 @@ func TestVerify(t *testing.T) {
 		id    string
 		valid bool
 	}{
-		{"130524198308184533", true},
-		{"130524198308184532", false},
-		{"130524098318184532", false},
+		{"110225196403026127", true},
+		{"110225196403026227", false},
+		{"110225196403026122", false},
 	}
 	for _, c := range cases {
-		ret := Verify(c.id)
+		ret, _ := Verify(c.id)
 		if c.valid != ret {
 			t.Errorf("Verify(%s)=%v != expected %v", c.id, ret, c.valid)
 		}
@@ -22,9 +22,12 @@ func TestVerify(t *testing.T) {
 }
 
 func TestParse(t *testing.T) {
-	ret, err := Parse("130524198308184533")
+	ret, err := Parse("110225196403026127")
 	if err != nil {
 		t.Error(err)
 	}
 	t.Log(ret)
+
+	_, err = Parse("")
+	t.Log(err)
 }

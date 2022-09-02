@@ -42,24 +42,9 @@ type IDCardInfo struct {
 }
 
 func Parse(id string) (*IDCardInfo, error) {
-	id = strings.ToUpper(id)
-	last := []rune(id)[17]
-	if len(id) != idcardLen || !goutil.StringIs(id[:17], unicode.IsDigit) ||
-		(!unicode.IsDigit(last) && last != 'X') {
-		return nil, fmt.Errorf("format not correct")
-	}
-
-	t, err := time.Parse("20060102", id[6:14])
-	if err != nil || t.After(time.Now()) || t.Before(startDay) {
-		return nil, fmt.Errorf("birthday %s not correct", id[6:14])
-	}
-
-	total := 0
-	for i := 0; i < 17; i++ {
-		total += ratio[i] * int(id[i]-'0')
-	}
-	if matchMap[total%ratioVal] != last {
-		return nil, fmt.Errorf("checksum not correct")
+	ret, err := Verify(id)
+	if !ret {
+		return nil, err
 	}
 
 	gender := "male"
@@ -71,6 +56,7 @@ func Parse(id string) (*IDCardInfo, error) {
 	if county == "" {
 		return nil, fmt.Errorf("areacode not correct")
 	}
+	t, _ := time.Parse("20060102", id[6:14])
 
 	return &IDCardInfo{id, t, gender, CodeMap[id[:2]+"0000"], CodeMap[id[:4]+"00"], county}, nil
 }
@@ -86,17 +72,17 @@ func VerifyBirthday(day string) bool {
 	return true
 }
 
-func Verify(id string) bool {
+func Verify(id string) (bool, error) {
 	if len(id) != idcardLen || !goutil.StringIs(id[:17], unicode.IsDigit) {
-		return false
+		return false, fmt.Errorf("format not correct")
 	}
 	id = strings.ToUpper(id)
 	last := []rune(id)[17]
 	if !unicode.IsDigit(last) && last != 'X' {
-		return false
+		return false, fmt.Errorf("format not correct")
 	}
 	if !VerifyBirthday(id[6:14]) {
-		return false
+		return false, fmt.Errorf("birthday %s not correct", id[6:14])
 	}
 	total := 0
 	for i, c := range id {
@@ -106,7 +92,7 @@ func Verify(id string) bool {
 		total += ratio[i] * int(c-'0')
 	}
 	if matchMap[total%ratioVal] != last {
-		return false
+		return false, fmt.Errorf("checksum not correct")
 	}
-	return true
+	return true, nil
 }
