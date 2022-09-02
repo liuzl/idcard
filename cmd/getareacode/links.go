@@ -9,6 +9,7 @@ type Source struct {
 // http://www.mca.gov.cn/article/sj/xzqh/
 
 var sources = []*Source{
+	&Source{`2020`, `2020年中华人民共和国县以上行政区划代码（截止2020年12月31日）`, `http://www.mca.gov.cn/article/sj/xzqh/2020/20201201.html`},
 	&Source{`2019`, `2019年11月中华人民共和国县以上行政区划代码`, `http://www.mca.gov.cn/article/sj/xzqh/2019/2019/201912251506.html`},
 	&Source{`2018`, `2018年中华人民共和国行政区划代码（截止2018年12月31日）`, `http://www.mca.gov.cn/article/sj/xzqh/1980/201903/201903011447.html`},
 	&Source{`2017`, `2017年中华人民共和国行政区划代码（截止2017年12月31日）`, `http://www.mca.gov.cn/article/sj/tjbz/a/2018/201803131439.html`},

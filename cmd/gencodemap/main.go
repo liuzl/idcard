@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	path = `src/github.com/liuzl/idcard`
+	path = `../..`
 )
 
 func genCode(m map[string]string, file string) {
@@ -34,11 +34,7 @@ func genCode(m map[string]string, file string) {
 }
 
 func main() {
-	gopath, found := os.LookupEnv("GOPATH")
-	if !found {
-		log.Fatal("Missing $GOPATH environment variable")
-	}
-	files, err := filepath.Glob(filepath.Join(gopath, path) + "/data/*.json")
+	files, err := filepath.Glob(filepath.Join(path) + "/data/*.json")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -57,6 +53,6 @@ func main() {
 			ret[k] = v
 		}
 	}
-	file := filepath.Join(gopath, path, "codemap.go")
+	file := filepath.Join(path, "codemap.go")
 	genCode(ret, file)
 }

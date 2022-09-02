@@ -17,7 +17,7 @@ import (
 
 var (
 	rowsXpath = xpath.MustCompile(`//td[text()="行政区划代码"]/parent::tr/following-sibling::tr`)
-	dataPath  = `src/github.com/liuzl/idcard/data`
+	dataPath  = `../../data`
 )
 
 func CodeMap(url string) (map[string]string, error) {
@@ -45,10 +45,6 @@ func CodeMap(url string) (map[string]string, error) {
 }
 
 func main() {
-	gopath, found := os.LookupEnv("GOPATH")
-	if !found {
-		log.Fatal("Missing $GOPATH environment variable")
-	}
 	for _, s := range sources {
 		log.Printf("crawl %s", s.Url)
 		m, err := CodeMap(s.Url)
@@ -59,7 +55,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		path := filepath.Join(gopath, dataPath, s.ID+".json")
+		path := filepath.Join(dataPath, s.ID+".json")
 		if err = ioutil.WriteFile(path, b, os.FileMode(0664)); err != nil {
 			log.Fatal(err)
 		}
